@@ -331,7 +331,7 @@ window.onload = async () => {
         if((remove_elem.innerText == 'Remove item') && (open_elem.innerText == 'Close') && !(items2[0] == null) && (edit_elem.innerText == 'Edit item')){           
             remove_elem.innerText = 'Cancel';
             for(i = 1; i <= 12; i++){
-                if(!(items_elem.children[i-1].children[0].src == ip  + "pics/biink.png")){
+                if(!(items_elem.children[i-1].children[0].src.includes("biink.png"))){
                     document.getElementById('remove-icon' + i).innerHTML = "X";
                     document.getElementById('remove-icon' + i).style.display = 'inline';
                     items_elem.children[i-1].style.backgroundColor = 'transparent';
@@ -357,7 +357,7 @@ window.onload = async () => {
         if((edit_elem.innerText == 'Edit item') && (open_elem.innerText == 'Close') && !(items2[0] == null) && (remove_elem.innerText == 'Remove item')){           
             edit_elem.innerText = 'Cancel';
             for(i = 1; i <= 12; i++){
-                if(!(items_elem.children[i-1].children[0].src == ip  + "pics/biink.png")){
+                if(!(items_elem.children[i-1].children[0].src.includes("biink.png"))){
                     document.getElementById('remove-icon' + i).innerHTML = "<img src='pics/edit.png' style='width:10px;'>";
                     document.getElementById('remove-icon' + i).style.display = 'inline';
                     items_elem.children[i-1].style.backgroundColor = 'transparent';
