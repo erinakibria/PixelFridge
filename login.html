@@ -1,0 +1,130 @@
+<!-- <?php
+    session_unset();
+    session_start();
+
+    include 'db.php';
+
+    if(isset($_POST['username']) && !(isset($_POST['logout']))){
+	    $username = $_POST['username'];
+	$pword = $_POST['password'];
+        $sql = $conn->prepare("select * from users where username=?");
+        $sql->bind_param("s", $uname);
+        $uname = $username;
+        $sql->execute();
+        $result = $sql->get_result();
+        if ($result->num_rows > 0) {
+            $records = $result->fetch_row();
+            if($records[1] == $pword){
+                    $_SESSION['username'] = $username;
+                    header("Location: fridge.php");
+                    die();
+            }else{
+                $_SESSION['fail'] = true;
+            }
+        }else{
+            $_SESSION['fail'] = true;
+        }
+    }
+    elseif(isset($_POST['logout'])){
+        echo "Signed out successfully";
+    }
+?> -->
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+        <script src="supabase.js"></script>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
+        <style>
+
+            .form-box{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 700px;
+                width: 100%;
+                font-family: "Pixelify Sans", sans-serif;
+                flex-direction: column;
+
+            }
+
+            .button-box{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .err-msg{
+                color: red;
+            }
+
+            #err-msg{
+                display: none;
+            }
+
+            .login-button, a{
+                font-family: "Pixelify Sans", sans-serif;
+
+            }
+        </style>
+    </head>
+    <body>
+        <script>
+            (async () => {
+                const { data: { session } } = await client.auth.getSession()
+                if (session) {
+                  // user is logged in redirect main page
+                  window.location.href = 'fridge.html'
+                }
+            })()
+        </script>
+        <a href='index.html'>Back to home</a>
+        <div class="form-box">
+            <p id='err-msg' class='err-msg'>Incorrect UserID/Password</p><br>
+            <!-- <?php
+                if(isset($_SESSION['fail'])){
+                    if($_SESSION['fail']) echo "<p class='err-msg'>Incorrect UserID/Password</p><br>";
+                }
+
+                if(isset($_SESSION['signup-success'])){
+                    if($_SESSION['signup-success']) echo "<p>Account created successfully, please log in to continue</p>";
+                }
+
+                session_unset();
+            ?> -->
+            <form onsubmit="handleLogin(event)">
+                    <label for="id">Email:</label>
+                    <div><input type="email" name="email" id="email" required></div>
+                    <br>
+                    <label for="password">Password:</label>
+                    <div><input type="password" name="password" id="password" required></div>
+                    <br>
+                    <div class="button-box">
+                        <button type="submit" class='login-button'>Login</button>
+                    </div>
+            </form>
+        </div>
+        <script>
+
+            async function handleLogin(event){
+                event.preventDefault()
+                const email = document.getElementById("email").value
+                const password = document.getElementById("password").value
+
+                const { data, error } = await client.auth.signInWithPassword({
+                  email,
+                  password
+                })
+
+                if (error) {
+                //   console.error(error)
+                  document.getElementById('err-msg').style.display = "inline"
+                } else {
+                  window.location.href = 'fridge.html'
+                }
+            }
+        </script>
+    </body>
+</html>

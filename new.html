@@ -1,0 +1,94 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+        <script src="supabase.js"></script>
+        <style>
+
+            .form-box{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+            }
+
+            .err{
+                display: none
+            }
+        </style>
+    </head>
+    <body>
+    <a href='index.php'>Back to home</a>
+
+        <div class="form-box">
+            <p class='err' id="err1">Non-whitespace characters required</p>
+            <p class='err' id="err2">Please enter a valid password</p>
+            <p class='err' id="err3">Email already in use</p>
+
+            <form onsubmit="handleSignup(event)">
+                    <label for="id">First Name:</label>
+                    <div><input id='fname' type="text" name="fname" required></div>
+                    <br>
+                    <label for="id">Email:</label>
+                    <div><input id='email' type="email" name="email" required></div>
+                    <br>
+                    <label for="password">New Password:</label>
+                    <div><input id='password' type="password" name="password" required></div>
+                    <br>
+                    <div class="button-box">
+                        <button type="submit" class='login-button'>Continue</button>
+                    </div>
+                    <p>Password must contain: </p>
+                    <ul>
+                        <li>Minimum of 8 characters</li>
+                        <li>At least one numeric character</li>
+                        <li>At least one alphabetic character</li>
+                        <li>At least one uppercase character</li>
+                        <li>At least one lowercase character</li>
+                    </ul>
+            </form>
+        </div>
+        <script>
+            async function handleSignup(event){
+                console.log("dew")
+                event.preventDefault()
+
+                document.getElementById('err1').style.display = 'none'
+                document.getElementById('err2').style.display = 'none'
+                document.getElementById('err3').style.display = 'none'
+
+                const email = document.getElementById("email").value.trim()
+                const password = document.getElementById("password").value.trim()
+                const fname = document.getElementById("fname").value.replace(/\s+/g, '')
+
+                if(fname == '') document.getElementById('err1').style.display = 'inline'
+                else if (password.length < 8 || !/[0-9]/.test(password) || !/[a-z]/.test(password) || !/[A-Z]/.test(password)) {
+                    document.getElementById('err2').style.display = 'inline'
+                }
+                else{
+                    const {data} = client.from('profiles').select("email").eq('email', email)
+                    if(data == undefined){
+
+                        const { data, error } = await client.auth.signUp({
+                          email: email,
+                          password: password
+                        })
+
+                        await client.from("profiles").insert({
+                            id: data.user.id,
+                            fname: fname,
+                        })
+
+                        window.location.href = 'fridge.html'
+                    }
+                    else document.getElementById('err3').style.display = 'inline'
+                }
+
+            }
+        </script>
+    </body>
+</html>
