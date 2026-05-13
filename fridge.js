@@ -911,7 +911,7 @@ async function itemAdd(id){
         .select('name, id, fridge_days')
         .eq('pic_file', file_name)
         .single()
-        console.log(error)
+        console.log(data)
         console.log(file_name)
 
         const today = new Date()
