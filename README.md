@@ -6,7 +6,7 @@ URL: https://erinakibria.github.io/PixelFridge/
 
 an account has been created for demonstrative purposes, using the following credentials:
 
-**Username**: demoUser
+**Username**: demoUser@demo.com
 
 **Password**: Demo#123
 
