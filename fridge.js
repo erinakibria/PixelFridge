@@ -124,7 +124,7 @@ window.onload = async () => {
             let itemCount = items2.length - 1;
             for(i = 0; i < 12; i++){
                 let img_elem = items_elem.children[i].children[0];
-                if(items2[i] == null){
+                if(items2[i] == null || items2[i] == undefined){
                     img_elem.src = "pics/biink.png";
                     items_elem.children[i].id = 'empty';
                 }
@@ -169,7 +169,7 @@ window.onload = async () => {
             fridge_elem.classList.add('col2-open');
             fridge_elem.classList.remove('col2-closed');
             items_elem.style.visibility = 'visible';
-            if(!(items2[((12*(page2)))] == null)) document.getElementById('fridge-pag2').style.visibility = 'visible';
+            if(!(items2[((12*(page2)))] == null || items2[12*page2] == undefined)) document.getElementById('fridge-pag2').style.visibility = 'visible';
             else document.getElementById('fridge-pag2').style.visibility = 'hidden';
             if((page2==1)) document.getElementById('fridge-pag1').style.visibility = 'hidden';
             else document.getElementById('fridge-pag1').style.visibility = 'visible';
@@ -328,7 +328,7 @@ window.onload = async () => {
       });
 
       remove_elem.onclick = async () => {
-        if((remove_elem.innerText == 'Remove item') && (open_elem.innerText == 'Close') && !(items2[0] == null) && (edit_elem.innerText == 'Edit item')){           
+        if((remove_elem.innerText == 'Remove item') && (open_elem.innerText == 'Close') && !(items2[0] == null || items2[0] == undefined) && (edit_elem.innerText == 'Edit item')){           
             remove_elem.innerText = 'Cancel';
             for(i = 1; i <= 12; i++){
                 if(!(items_elem.children[i-1].children[0].src.includes("biink.png"))){
@@ -339,7 +339,7 @@ window.onload = async () => {
                 else document.getElementById('remove-icon' + i).style.display = 'none';
             }
         } 
-        else if((open_elem.innerText == 'Close') && !(items2[0] == null) && (edit_elem.innerText == 'Cancel'));
+        else if((open_elem.innerText == 'Close') && !(items2[0] == null || items2[0] == undefined) && (edit_elem.innerText == 'Cancel'));
         else{
             remove_elem.innerText = 'Remove item';
             for(i = 1; i <= 12; i++){
@@ -354,7 +354,7 @@ window.onload = async () => {
     }
 
     edit_elem.onclick = async () => {
-        if((edit_elem.innerText == 'Edit item') && (open_elem.innerText == 'Close') && !(items2[0] == null) && (remove_elem.innerText == 'Remove item')){           
+        if((edit_elem.innerText == 'Edit item') && (open_elem.innerText == 'Close') && !(items2[0] == null || items2[0] == undefined) && (remove_elem.innerText == 'Remove item')){           
             edit_elem.innerText = 'Cancel';
             for(i = 1; i <= 12; i++){
                 if(!(items_elem.children[i-1].children[0].src.includes("biink.png"))){
@@ -365,7 +365,7 @@ window.onload = async () => {
                 else document.getElementById('remove-icon' + i).style.display = 'none';
             }
         } 
-        else if((open_elem.innerText == 'Close') && !(items2[0] == null) && (remove_elem.innerText == 'Cancel'));
+        else if((open_elem.innerText == 'Close') && !(items2[0] == null || items2[0] == undefined) && (remove_elem.innerText == 'Cancel'));
         else{
             edit_elem.innerText = 'Edit item';
             for(i = 1; i <= 12; i++){
@@ -778,11 +778,11 @@ function displayItemsPage(page){
     if((page==1) || (open_elem.innerText == 'Open')) document.getElementById('fridge-pag1').style.visibility = 'hidden';
     else document.getElementById('fridge-pag1').style.visibility = 'visible';
 
-    if(items2[(12*(page-1))] == null){
+    if(items2[(12*(page-1))] == null || items2[(12*(page-1))] == undefined){
         page2--;
     } 
 
-    if(items2[0] == null){
+    if(items2[0] == null || items2[0] == undefined){
         document.getElementById('fridge-pag1').style.visibility = 'hidden';
         for(i = 0; i < 12; i++){
             items_elem.children[i].children[0].src = 'pics/biink.png';
@@ -796,7 +796,7 @@ function displayItemsPage(page){
     else{
         for(i = 0; i < 12; i++){
             let next_item = items2[((12*(page-1)+i))];
-            if(next_item != null){
+            if(next_item != null && next_item != undefined){
                 items_elem.children[i].children[0].src = 'pics/items/' + next_item.items.pic_file;
                 items_elem.children[i].id = next_item.log_id;
                 let exp_date = new Date(next_item.expiry_date + "T00:00:00");
@@ -836,7 +836,7 @@ function displayItemsPage(page){
             }
         }
 
-        if((items2[((12*(page)))] == null) || (open_elem.innerText == 'Open')) document.getElementById('fridge-pag2').style.visibility = 'hidden';
+        if((items2[((12*(page)))] == null) || (items2[((12*(page)))] == undefined) || (open_elem.innerText == 'Open')) document.getElementById('fridge-pag2').style.visibility = 'hidden';
         else document.getElementById('fridge-pag2').style.visibility = 'visible';
 
         if(remove_elem.innerText == 'Cancel'){
