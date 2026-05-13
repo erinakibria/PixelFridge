@@ -113,7 +113,7 @@ window.onload = async () => {
         }
 
         items2 = data1;
-        if(items2[0] == null){
+        if(items2 == undefined || items2[0] == null){
             items_elem.children[0].children[0].src = "pics/biink.png";
             items_elem.children[0].id = 'empty';
             log_elem.style.display = 'none'
