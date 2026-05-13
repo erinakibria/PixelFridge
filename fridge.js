@@ -906,7 +906,7 @@ async function itemAdd(id){
         modal_elem = document.getElementById('modal');
         document.getElementById('modal-pic').src = document.getElementById(id).childNodes[0].src;
         modal_elem.classList.add('modal-vis');
-        file_name = document.getElementById('modal-pic').src.substr(ip.length+11);
+        file_name = document.getElementById('modal-pic').src.substr(ip.length+14);
         const { data, error } = await client.from('items')
         .select('name, id, fridge_days')
         .eq('pic_file', file_name)
