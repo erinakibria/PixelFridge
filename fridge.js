@@ -159,7 +159,7 @@ window.onload = async () => {
 
     await populateFridge();
     str = items_elem.children[0].children[0].src;
-    ip = str.substring(0, str.length-14);
+    ip = str.substring(0, str.length-18);
     populateFridgeGlobal = populateFridge;
 
 
