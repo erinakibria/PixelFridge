@@ -933,7 +933,7 @@ async function itemAdd(id){
 
 async function dispName(id){     // in the item add section
     if (document.getElementById(id).childNodes[0].src != ip + "pics/biink.png"){
-        file_name = document.getElementById(id).childNodes[0].src.substr(ip.length+41);
+        file_name = document.getElementById(id).childNodes[0].src.substr(ip.length+14);
         const { data, error } = await client.from('items').select('name').eq('pic_file', file_name).single()
         document.getElementById('item-name').style.visibility = 'visible';
         document.getElementById('item-name').innerText = data.name;
