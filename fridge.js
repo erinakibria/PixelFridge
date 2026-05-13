@@ -50,7 +50,7 @@ window.onload = async () => {
     positionFridge();
 
     async function populateFridge(){
-        let data1;
+        let data1 = null;
         switch(localStorage.getItem('sort_selection') || 1){
             case 1:{
                 const { data, error } = await client
