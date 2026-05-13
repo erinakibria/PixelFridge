@@ -158,8 +158,8 @@ window.onload = async () => {
     }
 
     await populateFridge();
-    str = items_elem.children[0].children[0].src;
-    ip = str.substring(0, str.length-17);
+    str = items_elem.children[0].children[0].src.split("/");
+    ip = `${str[0]}//${str[2]}/${str[3]}/`
     populateFridgeGlobal = populateFridge;
 
 
@@ -906,7 +906,7 @@ async function itemAdd(id){
         modal_elem = document.getElementById('modal');
         document.getElementById('modal-pic').src = document.getElementById(id).childNodes[0].src;
         modal_elem.classList.add('modal-vis');
-        file_name = document.getElementById('modal-pic').src.substr(ip.length+14);
+        file_name = document.getElementById('modal-pic').src.substr(ip.length+11);
         const { data, error } = await client.from('items')
         .select('name, id, fridge_days')
         .eq('pic_file', file_name)
@@ -933,7 +933,7 @@ async function itemAdd(id){
 
 async function dispName(id){     // in the item add section
     if (document.getElementById(id).childNodes[0].src != ip + "pics/biink.png"){
-        file_name = document.getElementById(id).childNodes[0].src.substr(ip.length+14);
+        file_name = document.getElementById(id).childNodes[0].src.substr(ip.length+11);
         console.log(document.getElementById(id).childNodes[0].src)
         const { data, error } = await client.from('items').select('name').eq('pic_file', file_name).single()
         document.getElementById('item-name').style.visibility = 'visible';
