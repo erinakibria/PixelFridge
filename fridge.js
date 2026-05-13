@@ -39,7 +39,7 @@ window.onload = async () => {
 
 
     async function setSort(){
-        sort_selection = localStorage.getItem('sort_selection') || 1
+        sort_selection = parseInt(localStorage.getItem('sort_selection')) || 1
         select_elem = document.getElementById('sort-options');
         select_elem.selectedIndex = sort_selection - 1;
     }
@@ -51,7 +51,7 @@ window.onload = async () => {
 
     async function populateFridge(){
         let data1 = null;
-        switch(localStorage.getItem('sort_selection') || 1){
+        switch(parseInt(localStorage.getItem('sort_selection')) || 1){
             case 1:{
                 const { data, error } = await client
                   .from('user_items')
@@ -449,7 +449,7 @@ window.onload = async () => {
         event.preventDefault();
 
         const formData = new FormData(sort_form);
-        localStorage.setItem('sort_selection', formData.get('sort-options'))
+        localStorage.setItem('sort_selection', parseInt(formData.get('sort-options')))
         await setSort();
         await populateFridge();
         open_elem.click();
